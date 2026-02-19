@@ -1,0 +1,32 @@
+# Environment variables
+.env
+
+# Environment variables (NEVER commit!)
+.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (large files, don't commit to git)
+data/raw/*.csv
+data/processed/*.csv
+
+# Credentials
+db_config.py
