@@ -28,5 +28,3 @@ Thumbs.db
 data/raw/*.csv
 data/processed/*.csv
 
-# Credentials
-db_config.py
