@@ -5,7 +5,280 @@ jupyter
 matplotlib
 seaborn
 
-Used to install all dependencies in requirements.txt
+Used to install all dependencies in requirements.txt  <head>
+	<link href="./assets/css/testimonial.css" rel="stylesheet">
+	<script src="./assets/js/parallax.js"></script>
+  </head>
+  
+  <?php
+	include('./service.php');
+
+	$testimonials = getTestimonials();
+	$featured = getFeaturedProperties();
+  ?>
+  
+  
+ <section>
+	 <header class="header-home">
+
+		<!-- This div is  intentionally blank. It creates the transparent black overlay over the video which you can modify in the CSS -->
+		<div class="overlay"></div>
+
+		<!-- The HTML5 video element that will create the background video on the header -->
+		<video width="100%" height="auto" autoplay loop muted playsinline poster="/assets/images/properties/609BroadwaySt/01.JPEG">
+		    <source src="./assets/videos/banner_1920_1080_30fps.mp4" type="video/mp4">
+			<source src="./assets/videos/banner_1920_1080_30fps.mov" type="video/mp4">
+		</video>
+
+		<!-- The header content -->
+		<div class="container h-100">
+			<div class="d-flex h-100 text-center align-items-center">
+			  <div class="w-100 text-white">
+				<h1 class="display-3 text-focus-in title">ANDY TA ESTATES</h1>
+				<p class="lead fs-6 mt-5 text-focus-in">Specializing in residential property sales and marketing across Mar Vista, Beverlywood, West Hollywood, Beverly Hills, Venice and Santa Monica.</p>
+			  </div>
+			</div>
+		</div>
+	</header>
+</section>
+
+<!-- Page section example for content below the video header -->
+<section>
+	<div class="container my-5">
+	<div class="row animate-scale">
+	  <div class="col-md-10 mx-auto text-center">
+		<h5 class="mt-5 text-primary">FIND YOUR NEW HOME WITH A TRUSTED PARTNER</h5>
+		<p class=" my-5 text-secondary">Andy Ta dedicates his time and willingness to go beyond into finding you the perfect community and a place to call home.</p>
+	  </div>
+	</div>
+	</div>
+</section>
+<hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+<section>
+	<div class="container-fluid p-0 text-center animate-scale">
+		<div class="">
+			<div class="col-md-12 mt-5 mx-auto align-items-center">
+				<h1 class="text-primary">Featured Properties</h1>
+				<p class="">Explore the finest residential properties in Los Angeles today.<p>
+			</div>
+			<div class="container">
+			<div class="row animate-scale">	
+			<?php
+						foreach ($featured as $key => $i) {
+							$price = '$' . number_format($i['price'], 0);
+							if($i['statusid'] == 5){
+    			                $subtext = "/mo";
+            			    }
+            			    else {
+            			        $subtext = "";
+            			    }
+            			    
+            			    if($i['representation'] == "B")
+                            {
+                                $representation = "Buyer";
+                            }
+                            else if ($i['representation'] == "S")
+                            {
+                                $representation = "Seller";
+                            }
+                            else if ($i['representation'] == "T")
+                            {
+                                $representation = "Tenant";
+                            }
+                            else if ($i['representation'] == "L")
+                            {
+                                $representation = "Landlord";
+                            }
+                            else if ($i['representation'] == "BS")
+                            {
+                                $representation = "Buyer & Seller";
+                            }
+                            else
+                            {
+                                $representation = "";
+                            }
+                            
+							echo 
+							"
+							<div class=\"col-md-4 mt-5\">
+							  <div class=\"card mx-auto\" style=\"width: 18rem;\">
+								  <span class=\"card-badge\">{$i['status']}</span>
+								<img class=\"card-img-top\" src=\" {$i['img_name']} \"></img>
+								<div class=\"card-body\">
+								  <h5 class=\"card-title\">{$i['address']} </h5>
+								  <p class=\"card-subtitle\">{$i['bed']} BD | {$i['bath']} BA | {$i['sqft']} SQ. FT.</p>
+								  <p class=\"card-text fw-bold\">{$price}{$subtext}</p>
+								  <p>{$representation} Representation</p>
+								  <a class=\"btn btn-anta viewPropertyBtn\" href='properties_detail.php?id={$i['id']}'>View</a>
+								</div>
+							  </div>
+							</div>
+							";
+						}	
+			?>
+			</div>
+			</div>
+			<div class="col-xxl-12 py-5 mx-auto align-items-center">
+				<a class="link" name ="properties" href="properties.php">VIEW MORE</a>
+			</div>
+		</div>
+	</div>
+</section>  
+
+<hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+
+<section class="pt-5 pb-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5 text-end" style="max-width: 100%;">
+			  <img src="./assets/images/professional/Andy_HeadShot_2.jpg" class="img-fluid square-img animate-scale" alt="...">
+			</div>
+			<div class="col-md-7 mt-3">
+			  <div class="animate-scale">
+				<h1 class="tracking-in-expand text-primary">MEET ANDY</h5>
+					<br/>
+				<p>Andy is a renowned real estate professional at Coldwell Banker Realty, specializing in the representation of residential real estate across Mar Vista, Beverlywood, West Hollywood, Beverly Hills, Venice and Santa Monica.</p>
+				<p>Residing in West Los Angeles for over a decade, Andy feels like the city is his backyard and is well-versed in the vibrant, diverse communities – from Venice and Playa Vista to the high-end neighborhoods of Beverly Hills, Bel Air and West Hollywood. </p>
+				<p>Dedicating his time and expertise catered to your requests. Whether you are selling your property or finding a new place to call home, he will provide his honest opinion and skills to execute an effective plan.</p>
+				<br />
+				<p><a class="link" name ="about" href="about.php">LEARN MORE</a></p>
+			</div>
+			</div>
+		</div>
+	</div>
+</section>  
+
+<br>
+<br>
+<br>
+<section class="parallax">
+    <div class="parallax-bg">
+        <img src="/assets/images/header_about.JPEG" alt="Parallax" />
+    </div>
+</section>
+
+<section class="py-5 py-xl-8 ">
+	<div class="container">
+	  <div class="row justify-content-md-center">
+		<div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
+		  <h2 class="fs-6 text-secondary mb-2 text-uppercase text-center">WE LOVE HAPPY CUSTOMERS</h2>
+		  <p class="display-5 mb-4 mb-md-5 text-center">DOING WHAT WE DO BEST FOR OUR CLIENTS</p>
+		</div>
+	  </div>
+	</div>
+
+	<div id="carouselExampleIndicators" class="carousel carousel-dark slide">
+			<?php
+				$testimonialLength = sizeof($testimonials);
+				$slideCount = round($testimonialLength/1,0);
+				$testimonialCount = -1;
+
+				echo "<div class=\"carousel-inner\">";
+
+  				// set count so it can be 0 when loop starts
+
+
+				// each testimonial
+				foreach ($testimonials as $key => $i) {
+					$testimonialCount++;
+					// echo "Testimonial Count:" .$testimonialCount;
+					// echo "Testimonial Length:" . $testimonialLength - 1;
+
+					// if count divisble by 3 then 
+					if(($testimonialCount % 1) == 0)
+					{
+						if($testimonialCount == 0) {
+							echo "<div class=\"carousel-item active text-center\">";
+						}
+						else {
+
+							echo "<div class=\"carousel-item text-center\">";
+
+						}
+						
+						echo "<div class=\"row justify-content-md-center\">";
+					}
+
+
+					// ***TO DO : add sex field into the testimonial table
+					if($i['sex'] == 'f')
+					{
+						$avatar = "./assets/images/anon_f.png";
+					}
+					else{
+						$avatar = "./assets/images/anon_m.jpg";
+					}
+
+					echo
+					"<div class=\"col-md-9\">
+						<div class=\"testimonial-card card border-0 border-bottom border-primary shadow-sm\">
+							<div class=\"card-body p-4 p-xxl-5\">
+								<figure>
+								<img class=\"profile img-fluid rounded rounded-circle mb-4 border border-5\" loading=\"lazy\" src=$avatar alt={$i['first_name']} {$i['last_name']}></img>
+								<figcaption>
+								<div class=\"bsb-ratings text-warning mb-3\" data-bsb-star={$i['rating']} data-bsb-star-off=\"0\"></div>
+								<blockquote class=\"bsb-quote bsb-blockquote-icon mb-4\">{$i['comment']}</blockquote>
+								<h5 class=\"fs-6 text-secondary mb-0\">{$i['first_name']} {$i['last_name']}</h5>
+								</figcaption>
+								</figure>
+							</div>
+						</div>
+					</div>";
+
+					// if count divisible by 3 and is not the first count then 
+					if(($testimonialCount != 0 ) || $testimonialCount == $testimonialLength-1)
+					{
+
+					}
+					echo "</div></div>";
+
+				}	
+
+				echo "</div>";
+
+				echo "<div class=\"carousel-indicators\">";
+
+				for($s = 0; $s < $slideCount; $s++)
+				{
+					if($s == 0 ){
+						echo "<button type=\"button\" data-bs-target=\"#carouselExampleIndicators\" data-bs-slide-to=\"{$s}\" class=\"active\" aria-current=\"true\" aria-label=\"Slide {$s}\"></button>";
+					}
+					else {
+						echo "<button type=\"button\" data-bs-target=\"#carouselExampleIndicators\" data-bs-slide-to=\"{$s}\" aria-current=\"true\" aria-label=\"Slide {$s}\"></button>";
+					}
+					
+				}
+				
+				echo "</div>";
+			?>
+
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+	</div>
+</section>
+
+<section>
+	<header class="header-page">
+    	<div class="overlay"></div>
+    	<img src="./assets/images/contact_office.jpg" class="" alt="..."></img>
+    	<!-- The header content -->
+    	<div class="header-text">
+    		<div class="w-100 text-white">
+                <h6 class="display-3 text-focus-in">WORK WITH ANDY</h6>
+                <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+                <p class="lead fs-6 mt-5 text-focus-in">Call Andy today to schedule a private showing</p>
+                <a class="btn btn-anta-light" href="contact.php" name="contact">Contact</a>
+            </div>
+    	</div>
+    </header>
+</section>
+
 pip install -r requirements.txt
 
 anyio==4.12.1

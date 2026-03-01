@@ -1,0 +1,18 @@
+----------------------------------------
+Data Cleaning Report
+----------------------------------------
+
+Initial rows: 541,909
+
+Rows removed by issue:
+  - Null Customer Id: 135,080 (24.93%)
+  - Cancelled Orders: 8,905 (1.64%)
+  - Invalid Quantity: 0 (0.00%)
+  - Invalid Price: 40 (0.01%)
+  - Duplicates: 5,192 (0.96%)
+
+Total removed: 149,217
+Final rows: 392,692
+Retention rate: 72.46%
+
+============================================================
