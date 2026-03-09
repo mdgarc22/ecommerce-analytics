@@ -29,6 +29,7 @@ logger = logging.getLogger(__name__)
 #  Get project root directory (two levels up from current file)
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 
+# create immutable outputs; each run will generate a new file providing an audit trail of changes over time (data lineage)
 # timestamp for report naming
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 # Define paths for raw and cleaned data
