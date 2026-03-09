@@ -254,15 +254,26 @@ def build_dim_date(df: pd.DataFrame) -> pd.DataFrame:
 
     # derive date attributes from the full date range
     dim_date = pd.DataFrame({'full_date': date_range})
+
+    # Smart key - YYYYMMDD format as integer
+    dim_date['date_key']     = dim_date['full_date'].dt.strftime('%Y%m%d').astype(int)
+
     dim_date['year']        = dim_date['full_date'].dt.year
     dim_date['quarter']     = dim_date['full_date'].dt.quarter
     dim_date['month']       = dim_date['full_date'].dt.month
     dim_date['month_name']  = dim_date['full_date'].dt.strftime('%B')
+    
     # .iso follows international standard for week numbering where the first week of the year is the one that contains the first Thursday of the year
     # .astype to handle .iso return of UInt32 type which can cause issues with some databases that expect standard integer types
     dim_date['week']        = dim_date['full_date'].dt.isocalendar().week.astype(int)
-    dim_date['day_of_week'] = dim_date['full_date'].dt.strftime('%A')
-    dim_date['is_weekend']  = dim_date['full_date'].dt.dayofweek >= 5
+    
+    dim_date['day_of_month'] = dim_date['full_date'].dt.day
+    dim_date['day_of_week']  = dim_date['full_date'].dt.dayofweek    # 0=Monday, 6=Sunday
+    dim_date['day_name']     = dim_date['full_date'].dt.strftime('%A')
+
+    # Flags
+    dim_date['is_weekend']   = dim_date['full_date'].dt.dayofweek >= 5
+    dim_date['is_holiday']   = False
 
     logger.info('dim_date built: %d rows', len(dim_date))
     return dim_date
