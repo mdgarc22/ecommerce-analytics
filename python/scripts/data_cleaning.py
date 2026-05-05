@@ -52,6 +52,7 @@ class DataQualityReport:
         self.metrics = {
             'null_customer_id': 0,
             'cancelled_orders': 0,
+            'non_product_codes': 0,
             'invalid_quantity': 0,
             'invalid_price': 0,
             'duplicates': 0
@@ -144,6 +145,19 @@ def remove_cancelled_orders(df: pd.DataFrame, report: DataQualityReport) -> pd.D
 
     return df_clean
 
+def remove_non_product_codes(df: pd.DataFrame, report: DataQualityReport) -> pd.DataFrame:
+    initial_count = len(df)
+
+    non_product_codes = ['POST', 'M', 'DOT', 'BANK CHARGES', 'AMAZONFEE']
+    df_clean = df[~df['StockCode'].isin(non_product_codes)].copy()
+
+    removed = initial_count - len(df_clean)
+    report.update('non_product_codes', removed)
+
+    logger.info("Removed %s rows with non-product stock codes (%.2f%%)", removed, (removed / initial_count) * 100)
+
+    return df_clean
+
 # Remove rows with invalid Quantity
 def remove_invalid_quantities(df: pd.DataFrame, report: DataQualityReport) -> pd.DataFrame:
     # Initial length of DataFrame
@@ -229,6 +243,7 @@ def clean_data_pipeline(df: pd.DataFrame) -> Tuple[pd.DataFrame, DataQualityRepo
     # Each function receives cleaned data from previous step
     df = remove_null_customers(df, report)
     df = remove_cancelled_orders(df, report)
+    df = remove_non_product_codes(df, report)
     df = remove_invalid_quantities(df, report)
     df = remove_invalid_prices(df, report)
     df = remove_duplicates(df, report)

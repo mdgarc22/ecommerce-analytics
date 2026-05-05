@@ -24,8 +24,12 @@ logger = logging.getLogger(__name__)
 # file paths
 # relative path resolution
 PROJECT_ROOT = Path(__file__).parent.parent.parent
+CLEANED_DIR = PROJECT_ROOT / 'data' / 'cleaned'
 
-CLEANED_DATA_PATH = PROJECT_ROOT / 'data' / 'cleaned' / 'cleaned_data.csv'
+# dynamically resolve the most recently created cleaned file
+# glob pattern matches any timestamped cleaned_data file
+# max() with st_mtime selects the most recently modified file
+CLEANED_DATA_PATH = max(CLEANED_DIR.glob('cleaned_data_*.csv'), key=lambda f: f.stat().st_mtime)
 
 # Country to region mapping
 # Used as a lookup table to provide data enrichment

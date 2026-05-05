@@ -24,7 +24,12 @@ logger = logging.getLogger(__name__)
 # file paths
 # relative path resolution
 PROJECT_ROOT = Path(__file__).parent.parent.parent
-CLEANED_DATA_PATH = PROJECT_ROOT / 'data' / 'cleaned' / 'cleaned_data.csv'
+CLEANED_DIR = PROJECT_ROOT / 'data' / 'cleaned'
+
+# dynamically resolve the most recently created cleaned file
+# glob pattern matches any timestamped cleaned_data file
+# max() with st_mtime selects the most recently modified file
+CLEANED_DATA_PATH = max(CLEANED_DIR.glob('cleaned_data_*.csv'), key=lambda f: f.stat().st_mtime)
 
 # batch processing chunk size
 # pandas will send 10000 rows at a time to the db
@@ -193,7 +198,7 @@ def load_fact_sales(fact_sales: pd.DataFrame, db: DatabaseManager) -> None:
     )
     logger.info('Loaded %d rows into fact_sales', len(fact_sales))
 
-
+# validate fact_table loaded
 def validate_fact_load(fact_sales: pd.DataFrame, db: DatabaseManager) -> None:
     # log
     logger.info('Validating fact_sales load')
