@@ -139,6 +139,3 @@ SELECT *
 FROM ranked_customers
 WHERE segment_rank <= 5
 ORDER BY customer_segment, segment_rank;
-    FROM fact_sales fs
-    
-        

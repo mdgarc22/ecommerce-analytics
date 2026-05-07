@@ -13,11 +13,17 @@
 -- column — what column to operate on
 -- OVER — required, signals this is a window function
 -- PARTITION BY — optional, resets the window for each group (like GROUP BY but without collapsing rows)
--- ORDER BY — how to sequence rows within the window
+-- ORDER BY — how to sequence rows within the window This gives you a within-year running total which is the most useful view for business tracking — "how much have we made so far this year?"
+-- ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+-- UNBOUNDED PRECEDING — go all the way back to the first row in the partition
+-- CURRENT ROW — stop at the current row
+
 
 -- LAG() 
 -- RANK() gives tied rows the same number and skips the next rank (1, 1, 3)
 -- ROW_NUMBER() always gives unique numbers regardless of ties (1, 2, 3)
+-- SUM() OVER() accumulates across a range of rows. This is what makes it a running total rather than a point-in-time value
+-- PARTITION BY year — resets the cumulative total at the start of each year. 
 
 -- count amount of rows from fact_sales table
 select count(*) as fact_sales from fact_sales;
