@@ -6,7 +6,8 @@ WITH monthly_revenue AS (
         dd.year,
         dd.month,
         dd.month_name,
-        ROUND(SUM(fs.total_amount), 2) AS revenue
+        ROUND(SUM(fs.total_amount), 2) AS revenue,
+        COUNT(DISTINCT fs.invoice_no) AS orders
     FROM fact_sales fs
     JOIN dim_date dd ON fs.date_key = dd.date_key
     WHERE fs.is_return = 0
@@ -17,6 +18,7 @@ SELECT
     month,
     month_name,
     revenue,
+    orders,
     LAG(revenue) OVER (ORDER BY year, month)  AS prev_month_revenue,
     ROUND(revenue - LAG(revenue) OVER (ORDER BY year, month), 2) AS mom_change,
     ROUND((revenue - LAG(revenue) OVER (ORDER BY year, month))
