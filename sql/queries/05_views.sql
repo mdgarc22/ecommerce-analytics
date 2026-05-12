@@ -93,3 +93,26 @@ GROUP BY
 SELECT * FROM vw_customer_summary
 ORDER BY overall_rank
 LIMIT 10;
+
+
+
+-- Revenue by country
+CREATE OR REPLACE VIEW vw_country_revenue AS
+SELECT
+    dco.country_name,
+    dco.region,
+    ROUND(SUM(fs.total_amount), 2)          AS revenue,
+    COUNT(DISTINCT fs.invoice_no)           AS orders,
+    COUNT(DISTINCT fs.customer_key)         AS customers,
+    ROUND(SUM(fs.total_amount) /
+    COUNT(DISTINCT fs.invoice_no), 2)       AS avg_order_value
+FROM fact_sales fs
+JOIN dim_country dco ON fs.country_key = dco.country_key
+WHERE fs.is_return = 0
+GROUP BY dco.country_name, dco.region
+ORDER BY revenue DESC;
+
+-- run this select statement
+SELECT * FROM vw_country_revenue
+ORDER BY revenue DESC
+LIMIT 10; 
